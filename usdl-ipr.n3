@@ -1,0 +1,475 @@
+@base         <http://linked-usdl.org/ns/legal#> .
+@prefix : <#> .
+@prefix ctag:    <http://commontag.org/ns#> .
+@prefix dcterms:  <http://purl.org/dc/terms/> .
+@prefix dctypes:  <http://purl.org/dc/dcmitype/> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix gr:      <http://purl.org/goodrelations/v1#> .
+@prefix msm:     <http://cms-wg.sti2.org/ns/minimal-service-model#> .
+@prefix org:     <http://www.w3.org/ns/org#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix time:    <http://www.w3.org/2006/time#> .
+@prefix vcard:   <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix gn: <http://www.geonames.org/ontology#> .
+
+<http://linked-usdl.org/ns/legal>
+      rdf:type owl:Ontology ;
+      rdf:type usdl-legal:CopyrightProtectedElement ;
+      rdfs:label "Intellectual property rights vocabulary" ;
+      rdfs:label "Derived from Legal module of USDL v3 M5" ;
+      dcterms:contributor :Torsten_Leidig ;
+      dcterms:created "2011-04-27"^^xsd:date ;
+      dcterms:creator :Torsten_Leidig ;
+      dcterms:description "The current version of the module is limited to capture usage rights of a service. Usage rights are commonly associated with copyright, which exists with the creation of the corresponding artifact and does not need to be registered with an office in order to be granted.2 Formalisms for (copy)rights are well known, e.g., the Open Digital Rights Language3 supporting the annotation of digital media content or the Creative Commons movement4 for marking creative work with the freedom the creator wants it to carry. However, these formalisms are either very specific for certain artifact types (works) or are aiming to give the usage rights to the open community without any possibility of revocation (cf. Creative Commons). In an Internet of Services, however, the subject to be traded, i.e., the services and the content, are much more diverse than the examples mentioned above." ;
+      dcterms:modified "2011-04-27"^^xsd:date ;
+      owl:versionInfo "0.1" .
+
+:thisWork
+      rdf:type :Work ;
+      :subsumes <http://linked-usdl.org/ns/legal> ;
+      :hasWorkType :TechnicalOrScientific .
+
+
+:Torsten_Leidig
+      rdf:type foaf:Person ;
+      foaf:name "Torsten Leidig";
+      foaf:title "Dr";
+      foaf:firstName "Torsten";
+      foaf:phone "+49 6227 7 52535";
+      foaf:lastName "Leidig" .
+
+# USDL sugests to add this CopyrightProtectedElement as an interface to every copyrighted element.
+# in USDL LOD it would be sufficient to add the type :Work
+:CopyrightProtectedElement 
+	rdf:type rdfs:Class ;
+	rdfs:label "Copyright-protected Element" ;
+	rdfs:comment "CopyrightProtectedElement serves as the super type of all USDL classes that can be classified as work protected under copyright. These include NetworkProvisionedEntity, Artifact and Parameter. Please refer to the specifications of the Legal Module and other modules for further details." ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:Work 
+	rdf:type rdfs:Class ;
+	rdfs:label "Work" ;
+	rdfs:comment "Work represents the concept that captures the artifact which can be licensed. A work is created by an author, which means that some human action should have taken place to classify work as protectable. However, for the description of usage rights through USDL the importance lies in License and the corresponding reference licensorRole (cf. Section 3.2) rather than solely the author. Therefore, the information of the author is given as reference âhas Authorâ from Work to Person.<p>§ 1 UrhG states that creators of literary, scientific, and artistic works are protected by the conditions of this law. The notions of creator and work are of central importance for the applicability of the law and the scope of protection. The creator is defined in § 7 UrhG and has to be a natural person creating the work. The work, on the other hand, is defined in § 2 UrhG and has to meet certain requirements to be protected under copyright: <br> (1) it has to be in the domain of literary, science, or art (§ 2 Sect. 1 UrhG)<br>(2) it has to be a personal intellectual creation (§ 2 Sect. 2 UrhG)<br>Only if both requirements are fulfilled is the object considered as a work protected under the UrhG.7 Regarding the first requirement the UrhG lists some examples for protected works, among them written text, computer programs, musical works, or pictures. However, this listing is non-exhaustive, and, therefore, the UrhG also recognizes yet unknown types of work for its scope of protection. The second requirement connects the notions work and creator. The notion of personal in requirement (2) is met, when some sort of human act for the creation of the work is evident. This also applies if the human act is supported by technical equipment. The term intellectual expresses, that the work has to be a product of the creator's mind, expressing some of his ideas or feelings, and being perceptible by others. However, only the intellectual content of the work is protected by the UrhG, but not the actual item, e.g., consider the work ânovelâ versus the item âbookâ. Finally, the notion of creation in requirement (2) indicates, that the work has to have a sufficient level of originality, i.e., it must exhibit creative power and some individuality. However, the level is not very demanding, therefore also simple text is protected under copyright.<br>Since it is not predefined which element within USDL can be subsumed as work, and, therefore, is protected under copyright, Work does not have any superclass. To express the relation to possible classes which can comprise works, the interface CopyrightProtectedElement is introduced in the Foundation module. NetworkProvisionedEntity (cf. Service Module), Artifact (cf. Foundation) and Parameter (cf. Functional Module) implement the interface CopyrightProtectedElement. Please note: Usage rights (license) for Parameter is addressing the manifested output at the consumerâs end, which is delivered by means of the service described through USDL. Future tooling has to consider this fact, i.e. the usage rights are only for the actual output." ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:basicWorkTypes 
+	rdf:type skos:ConceptScheme;
+  	skos:hasTopConcept :WorkType ;
+	rdfs:label "Work Types scheme" ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:WorkType
+	rdf:subClassOf skos:Concept;
+  	skos:prefLabel "Work Type"@en;
+	rdfs:comment "Types of Work" ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:Literary
+	rdf:type :WorkType ;
+	skos:prefLabel "Literary Work Type"@en;
+	rdfs:comment "§ 2 Sect. 1 No. 1 UrhG; including computer program." ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:Musical
+	rdf:type :WorkType ;
+	skos:prefLabel "Musical Work Type"@en;
+	rdfs:comment "§ 2 Sect. 1 No. 2 UrhG" ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:Dramatical
+	rdf:type :WorkType ;
+	skos:prefLabel "Dramatical Work Type"@en;
+	rdfs:comment "§ 2 Sect. 1 No. 3 UrhG" ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:GraphicOrAppliedArt
+	rdf:type :WorkType ;
+	skos:prefLabel "Graphic or Applied Art Work Type"@en;
+	rdfs:comment "§ 2 Sect. 1 No. 4 UrhG" ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:Photographical
+	rdf:type :WorkType ;
+	skos:prefLabel "Photographical Work Type"@en;
+	rdfs:comment "§ 2 Sect. 1 No. 5 UrhG" ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:MotionPicture
+	rdf:type :WorkType ;
+	skos:prefLabel "Motion Picture Work Type"@en;
+	rdfs:comment "§ 2 Sect. 1 No. 6 UrhG" ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:TechnicalOrScientific
+	rdf:type :WorkType ;
+	skos:prefLabel "Technical or Scientific Work Type"@en;
+	rdfs:comment "§ 2 Sect. 1 No. 7 UrhG; embodiments of technical or scientific manner such as users manuals or maps." ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:Collection
+	rdf:type :WorkType ;
+	skos:prefLabel "Collection Work Type"@en;
+	rdfs:comment "§ 4 UrhG: Collections and database works" ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:Governmental
+	rdf:type :WorkType ;
+	skos:prefLabel "Governmental Work Type"@en;
+	rdfs:comment "§ 5 UrhG; governmental works such as statutes, regulations and official statements are not subjected to the copyright law and hence not licensable. Non-governmental works which are referencing governmental work but do not literally cite them maybe subject to copyright law." ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:OtherWorks
+	rdf:type :WorkType ;
+	skos:prefLabel "Other Work Type"@en;
+	rdfs:comment "the 'OtherWorks' allows the OpenWorld paradigma; the legal code does give a non-exhaustive enumeration" ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:License 
+	rdf:type rdfs:Class ;
+	rdfs:label "License" ;
+	rdfs:comment "The notion of License is a common term, but not explicitly mentioned in the UrhG. However, for efficient business activities different usage rights (cf. Section 3.3) have to be consolidated into a common container, as well as the terms under which the usage rights are permitted, i.e. the requirements (cf. Section 3.9) and restrictions (cf. Section 3.5), have to be assigned to it. Thus, License serves as such a container.<br>The subject of License can be the service itself, the elements of the service and/or the service output. For instance a database with geographic information is only accessed through the service and could be considered as a service element, in contrast, a personalized map could be provided to the consumer and constitutes the service output. When publishing the usage rights on a marketplace there should be a clear differentiation between the different elements which are subject to a license. Therefore, the license is indirect related to a specific element thought the interface CopyrightProtectedElement." ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:basicLicensorRoleTypes 
+	rdf:type skos:ConceptScheme;
+  	skos:hasTopConcept :LicensorRoleType ;
+	rdfs:label "Licensor Role Types scheme" ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+
+:LicensorRoleType
+	rdf:subClassOf skos:Concept;
+  	skos:prefLabel "Licensor Role Type"@en;
+	rdfs:comment "Types licensor roles" ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:Author
+	rdf:type :LicensorRoleType ;
+	skos:prefLabel "Author Role Type"@en;
+	rdfs:comment "The author of a work owns all copyrights and is able to grant others exclusive and non-exclusive usage rights. In addition, the author owns the personal rights which can neither be transferred nor granted." ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:ExclusiveLicensee
+	rdf:type :LicensorRoleType ;
+	skos:prefLabel "Exclusive Licensee Role Type"@en;
+	rdfs:comment "An exclusive licensee is able to grant usage rights to third parties. This enables him to act as an intermediary." ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+
+:UsageRight 
+	rdf:type rdfs:Class ;
+	rdfs:label "Usage Right" ;
+	rdfs:comment "UsageRight is directed to a concrete usage type. Only usage rights can be granted. The UrhG provides twelve different exploitation rights (§§ 16-24 UrhG), which are corresponding to the usage rights. They are defined as nature of UsageRight." ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:basicUsageNatures
+	rdf:type skos:ConceptScheme;
+  	skos:hasTopConcept :UsageNature ;
+	rdfs:label "Usage Nature scheme" ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:UsageNature
+	rdf:subClassOf skos:Concept;
+  	skos:prefLabel "Usage Nature Type"@en;
+	rdfs:comment "The UrhG provides different exploitation rights which are codified in §§ 16  24 UrhG. The author and/or the exclusive licensee are able to allow third parties to enact the exploitation rights by granting them the corresponding usage right. Each usage right is modeled as enumeration literal. Different rights might be required in order to use the service. For example, if the service (in whole or in part) needs to be transmitted and copied, the author has to approve both the transmission and the reproduction." ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:RightToDistribute
+	rdf:type :UsageNature ;
+	skos:prefLabel "Right to distribute"@en;
+	rdfs:comment "§ 17 UrhG; right to offer and market a work / a copy." ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:RightToReproduce
+	rdf:type :UsageNature ;
+	skos:prefLabel "Right to reproduce"@en;
+	rdfs:comment "§ 16 UrhG; includes the transmission of a work in order to repeatable display it." ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:ExhibitionRight
+	rdf:type :UsageNature ;
+	skos:prefLabel "Right to exhibit"@en;
+	rdfs:comment "§ 18 UrhG; right to exhibit/display an unpublished work of visual/fine arts." ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:RightToDisplay
+	rdf:type :UsageNature ;
+	skos:prefLabel "Right to display"@en;
+	rdfs:comment "§ 19 UrhG; right to display a work or a copy of a work." ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:RightToMakePubliclyAvailable
+	rdf:type :UsageNature ;
+	skos:prefLabel "Right to make publicly available"@en;
+	rdfs:comment "§ 19a UrhG; for the legal definition of the term âpublicâ see § 15 Sect. 3 UrhG." ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:RightToTransmit
+	rdf:type :UsageNature ;
+	skos:prefLabel "Right to transmit"@en;
+	rdfs:comment "§ 20 UrhG; right to make publicly available via radio (e.g., sound, TV, cable, satellite, or comparable, etc.)" ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:AdaptionRight
+	rdf:type :UsageNature ;
+	skos:prefLabel "Right to adapt"@en;
+	rdfs:comment "§ 23 UrhG; right to edit the licensed work." ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:UsageType 
+	rdf:type rdfs:Class ;
+	rdfs:label "Usage Type" ;
+	rdfs:comment "A UsageType has to have a sufficiently clear set of boundaries in its commercial and technical usage. The usage has to be executed in an independent, uniform and concrete manner. For instance, a song can be distributed on a compact disc or via the MP3 format on the Internet. Both usage types (manners) are clearly different, however, they are both relating to the same usage right of distribution, which can be granted separately for each usage type or collectively for all usage types by the rights holder. The quantity of possible usage types is depending on the kind of work. The more usage types are available, the more comprehensive are the possibilities of granting usage rights.<br>Especially when it comes to agreeing upon (legally) unknown usage types, usage types need a description in order to make sure that both contracting parties know exactly what kind of usage is allowed. As usage types are highly domain specific, it is expected that depending on the domain concrete subtypes of UsageType will be introduced. Alternatively, objects of class UsageType may reference ontologies defined outside of USDL and reuse their existing vocabulary." ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:Restriction 
+	rdf:type rdfs:Class ;
+	rdfs:label "Restriction" ;
+	rdfs:comment "A UsageType has to have a sufficiently clear set of boundaries in its commercial and technical usage. The usage has to be executed in an independent, uniform and concrete manner. For instance, a song can be distributed on a compact disc or via the MP3 format on the Internet. Both usage types (manners) are clearly different, however, they are both relating to the same usage right of distribution, which can be granted separately for each usage type or collectively for all usage types by the rights holder. The quantity of possible usage types is depending on the kind of work. The more usage types are available, the more comprehensive are the possibilities of granting usage rights.<br>Especially when it comes to agreeing upon (legally) unknown usage types, usage types need a description in order to make sure that both contracting parties know exactly what kind of usage is allowed. As usage types are highly domain specific, it is expected that depending on the domain concrete subtypes of UsageType will be introduced. Alternatively, objects of class UsageType may reference ontologies defined outside of USDL and reuse their existing vocabulary." ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:TimeRestriction 
+	rdf:type rdfs:Class ;
+	rdfs:subClassOf :Restriction;
+	rdfs:label "Time Restriction" ;
+	rdfs:comment "A TimeRestriction defines a period of time within which a usage right is legally valid. The TimeRestriction also includes the possibility to restrict the usage right in a quantitative manner, e.g., the number of allowed downloads of a song." ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:SpaceRestriction 
+	rdf:type rdfs:Class ;
+	rdfs:subClassOf :Restriction;
+	rdfs:label "Space Restriction" ;
+	rdfs:comment "A Space Restriction narrows a usage right to a specific space. This does not only extend to geographical areas, but also to linguistic regions." ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:ContentRestriction 
+	rdf:type rdfs:Class ;
+	rdfs:subClassOf :Restriction;
+	rdfs:label "Content Restriction" ;
+	rdfs:comment "For a ContentRestriction the corresponding usage right (cf. Section 3.3) has to be considered. A UsageRight can be broken down (and consequently restricted), if different UsageTypes (cf. Section 3.4) are distinctive and have an autonomous commercial application. For instance, the UsageRight to distribute could be restricted to a hard cover and soft cover version of a book (which are UsageTypes).<br> A content restriction exists when a UsageRight authorizes a specific manner of usage (UsageType) and thereby restricts itself. Such a granted UsageType of a UsageRight can again be restricted by a content restriction. A content restriction might also be the restriction for a specific group of people. For instance, offering a song in the MP3 format for download only to students might include two different content restrictions: First, the song might only be distributed in the MP3 format. Second, the group of people permitted to download the song is that of students, which constitutes a restriction on the first one." ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:Requirement 
+	rdf:type rdfs:Class ;
+	rdfs:label "Requirement" ;
+	rdfs:comment "The term Requirement is not mentioned in the legal code, however, we derive its necessity from the notion of license (cf. Section 3.2), which can mean to grant usage rights (cf. Section 3.3) under certain requirements. Specific types of requirements have to be introduced through domain extensions." ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:Attribution 
+	rdf:type rdfs:Class ;
+	rdfs:subClassOf :Requirement;
+	rdfs:label "Attribution" ;
+	rdfs:comment "The Attribution is a creatorâs right to sign his work with his name (§ 12 UrhG). The creator can demand the licensee to not remove or change his name from the licensed work. Hence the Attribution is a requirement and therefore modeled as subclass of Requirement. In case the provider is not the creator, the attributionName is not the providerâs name but the creatorâs name." ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+:Reward 
+	rdf:type rdfs:Class ;
+	rdfs:subClassOf :Requirement;
+	rdfs:label "Reward" ;
+	rdfs:comment "A License may contain a specific reward in form of, e.g., paying money represented by the class Reward and a relation to the class PricePlan via the relation definedBy. In case the usage of a service is for free, the license doesnât contain a price plan at all." ;
+	rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> .
+
+# Properties
+
+# Work
+:subsumes
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The legal concept of âworkâ has certain requirements in order to actually qualify as work which is protected under copyright. A CopyrightProtectedElement can be subsumed as work (1) or not (0)." ;
+      rdfs:domain :Work ;
+      rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> ;
+      rdfs:label "subsumes"@en ;
+      rdfs:range :CopyrightProtectedElement .
+
+:hasWorkType
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The UrhG provides several work types which enables the licensor to classify his work." ;
+      rdfs:domain :Work ;
+      rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> ;
+      rdfs:label "has work type"@en ;
+      rdfs:range :WorkType .
+
+# License
+:licenseNumber
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The license number identifies a specific license." ;
+      rdfs:domain :License ;
+      rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> ;
+      rdfs:label "license number"@en ;
+      rdfs:range xsd:string .
+
+:licensorRole
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The licensor can be either the author himself or an exclusive licensee who has the right to grant usage rights to third parties." ;
+      rdfs:domain :License ;
+      rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> ;
+      rdfs:label "license number"@en ;
+      rdfs:range :LicensorRoleType .
+
+:hasLicensor
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The license can have several licensors. Please note: The consumer cannot be the licensor in this context." ;
+      rdfs:domain :License ;
+      rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> ;
+      rdfs:label "has licensor"@en ;
+      rdfs:range usdl-f:Role .
+
+:grantedUsageRight
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "A granted usage right." ;
+      rdfs:domain :License ;
+      rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> ;
+      rdfs:label "granted usage right"@en ;
+      rdfs:range :UsageRight .
+
+:requires
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "Describes the obligations of the licensee as part of the license." ;
+      rdfs:domain
+              [ rdf:type owl:Class ;
+                owl:unionOf (:License :UsageRight :Restriction)
+              ] ;
+      rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> ;
+      rdfs:label "requires"@en ;
+      rdfs:range :Requirement .
+
+:licensedWork
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "A set of works whose usage is supposed to be licensed by a license agreement." ;
+      rdfs:domain :License ;
+      rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> ;
+      rdfs:label "licensedWork"@en ;
+      rdfs:range :Work .
+
+:isRestricedBy
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "A set of restrictions can be included into a license and thereby restrict usage rights and specify usage types." ;
+      rdfs:domain
+              [ rdf:type owl:Class ;
+                owl:unionOf (:License :UsageRight :Restriction)
+              ] ;
+      rdfs:domain :License ;
+      rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> ;
+      rdfs:label "is restriced by"@en ;
+      rdfs:range :Restriction .
+
+
+# UsageRight
+:hasNature
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "Corresponding exploitation rights, regulated in §§ 16-24 UrhG." ;
+      rdfs:domain :UsageRight ;
+      rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> ;
+      rdfs:label "has exclusive"@en ;
+      rdfs:range :UsageNature .
+
+:isExclusive
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "A usage right can be either exclusive or nonexclusive." ;
+      rdfs:domain :UsageRight ;
+      rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> ;
+      rdfs:label "is nature"@en ;
+      rdfs:range xsd:boolean .
+
+:permits
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The usage right permits several usage types." ;
+      rdfs:domain :UsageRight ;
+      rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> ;
+      rdfs:label "has nature"@en ;
+      rdfs:range :UsageType .
+
+:isDeterminedBy
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "In some cases the exercise of the action might determines which usage rights have to be granted in order to use a service lawfully" ;
+      rdfs:domain :UsageRight ;
+      rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> ;
+      rdfs:label "is determined by"@en ;
+      rdfs:range usdl-func:Function .
+
+# UsageType
+
+:appliesToWork
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "A UsageType applies to a specific Work. The WorkType influences the possible usage type, e.g. in the music industry you have different possible usage types compared to the publishing industry, e.g. distributing a song via MP3 vs. distributing a book via PDF. Both usage types are not truly applicable for the works in the other domain." ;
+      rdfs:domain :UsageType ;
+      rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> ;
+      rdfs:label "applies to work"@en ;
+      rdfs:range :Work .
+
+# Restriction
+# could be expressed by the unit ontology/schema?
+:usageQuantity
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "Quantity of allowed usages." ;
+      rdfs:domain :TimeRestriction ;
+      rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> ;
+      rdfs:label "usage quantity"@en ;
+      rdfs:range xsd:int .
+
+:usageTime
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "Quantity of allowed usages." ;
+      rdfs:domain :TimeRestriction ;
+      rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> ;
+      rdfs:label "usage time"@en ;
+      rdfs:range time:TemporalEntity .
+
+:usageLanguage
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "Allowed langages usages." ;
+      rdfs:domain :SpatialRestriction ;
+      rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> ;
+      rdfs:label "usage language"@en ;
+      rdfs:range time:TemporalEntity .
+
+:usageRegion
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "Allowed regiosn for usage." ;
+      rdfs:domain :SpatialRestriction ;
+      rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> ;
+      rdfs:label "usage region"@en ;
+      rdfs:range gn:name .
+
+:usageContent
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The specific manner of usage which is determined by the concrete manner of usage. For instance, monitoring IP addresses invoking the service enables a restriction combined with this information." ;
+      rdfs:domain :ContentRestriction ;
+      rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> ;
+      rdfs:label "usage content"@en ;
+      rdfs:range xsd:string .
+
+# Requirement
+
+:isNegotiable
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The requirements may be negotiable or not." ;
+      rdfs:domain :Requirement ;
+      rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> ;
+      rdfs:label "is negotiable"@en ;
+      rdfs:range xsd:boolean .
+
+# Attribution (maybe this is included in dc/dcterms?
+
+:attributionURL
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The attribution ofthe auther, e.g. the URL of the work or the author(s)." ;
+      rdfs:domain :Attribution ;
+      rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> ;
+      rdfs:label "attribution url"@en ;
+      rdfs:range xsd:boolean .
+
+:attributionName
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The name of the author(s) of the work." ;
+      rdfs:domain :Attribution ;
+      rdfs:isDefinedBy <http://linked-usdl.org/ns/legal> ;
+      rdfs:label "attribution name"@en ;
+      rdfs:range xsd:string .
+
+
+
